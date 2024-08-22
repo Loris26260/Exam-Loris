@@ -1,4 +1,3 @@
--- Suppression des tables si elles existent déjà
 DROP TABLE IF EXISTS Inscription;
 DROP TABLE IF EXISTS Epreuve;
 DROP TABLE IF EXISTS Competition;
@@ -11,13 +10,11 @@ DROP TABLE IF EXISTS classe;
 DROP TABLE IF EXISTS inscrit;
 DROP TABLE IF EXISTS spécialise;
 
--- Création de la table Club
 CREATE TABLE Club (
     ID_Club BIGINT AUTO_INCREMENT PRIMARY KEY,
     Nom_Club VARCHAR(100) NOT NULL
 ) ENGINE=InnoDB;
 
--- Création de la table Competition
 CREATE TABLE Competition (
     ID_Competition BIGINT AUTO_INCREMENT PRIMARY KEY,
     Nom_Competition VARCHAR(100) NOT NULL,
@@ -26,7 +23,6 @@ CREATE TABLE Competition (
     Type_Competition VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB;
 
--- Création de la table Epreuve
 CREATE TABLE Epreuve (
     ID_Épreuve BIGINT AUTO_INCREMENT PRIMARY KEY,
     Type_Épreuve VARCHAR(100) NOT NULL,
@@ -34,7 +30,6 @@ CREATE TABLE Epreuve (
     Conditions_de_realisation TEXT
 ) ENGINE=InnoDB;
 
--- Création de la table Sportif
 CREATE TABLE Sportif (
     Numéro_dossard_Sportif BIGINT AUTO_INCREMENT PRIMARY KEY,
     Nom_Sportif VARCHAR(50) NOT NULL,
@@ -46,7 +41,6 @@ CREATE TABLE Sportif (
     Type_de_sportif ENUM('Licencié', 'Amateur') NOT NULL
 ) ENGINE=InnoDB;
 
--- Création de la table Licencié
 CREATE TABLE Licencié (
     Numéro_dossardL_Licencié BIGINT PRIMARY KEY,
     Numéro_License_Licencié VARCHAR(50) NOT NULL,
@@ -55,7 +49,6 @@ CREATE TABLE Licencié (
     FOREIGN KEY (Numéro_dossardL_Licencié) REFERENCES Sportif(Numéro_dossard_Sportif)
 ) ENGINE=InnoDB;
 
--- Création de la table amateur
 CREATE TABLE amateur (
     Numéro_dossard_A_amateur BIGINT PRIMARY KEY,
     Certificat_medical VARCHAR(100) NOT NULL,
@@ -63,13 +56,11 @@ CREATE TABLE amateur (
     FOREIGN KEY (Numéro_dossard_A_amateur) REFERENCES Sportif(Numéro_dossard_Sportif)
 ) ENGINE=InnoDB;
 
--- Création de la table Inscription
 CREATE TABLE Inscription (
     ID_Inscription BIGINT AUTO_INCREMENT PRIMARY KEY,
     Date_inscription DATE NOT NULL
 ) ENGINE=InnoDB;
 
--- Création de la table inscrit
 CREATE TABLE inscrit (
     Numéro_dossard_Sportif BIGINT,
     ID_Competition BIGINT,
@@ -80,7 +71,6 @@ CREATE TABLE inscrit (
     FOREIGN KEY (ID_Inscription) REFERENCES Inscription(ID_Inscription)
 ) ENGINE=InnoDB;
 
--- Création de la table spécialise
 CREATE TABLE spécialise (
     Numéro_dossard_Sportif BIGINT,
     Numéro_dossardL_Licencié BIGINT,
@@ -91,7 +81,6 @@ CREATE TABLE spécialise (
     FOREIGN KEY (Numéro_dossard_A_amateur) REFERENCES amateur(Numéro_dossard_A_amateur)
 ) ENGINE=InnoDB;
 
--- Création de la table classe
 CREATE TABLE classe (
     ID_Épreuve BIGINT,
     ID_Épreuve_classe BIGINT,
@@ -99,7 +88,6 @@ CREATE TABLE classe (
     FOREIGN KEY (ID_Épreuve) REFERENCES Epreuve(ID_Épreuve)
 ) ENGINE=InnoDB;
 
--- Création de la table compose
 CREATE TABLE compose (
     ID_Competition BIGINT,
     ID_Épreuve BIGINT,
